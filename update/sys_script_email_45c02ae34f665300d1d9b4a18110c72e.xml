@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_email">
+    <sys_script_email action="INSERT_OR_UPDATE">
+        <name>NeedItWaitingForApprovalApplications</name>
+        <new_lines_to_html>false</new_lines_to_html>
+        <script><![CDATA[(function runMailScript(/* GlideRecord */ current, /* TemplatePrinter */ template,
+          /* Optional EmailOutbound */ email, /* Optional GlideRecord */ email_action,
+          /* Optional GlideRecord */ event) {
+
+         var rightNow = new GlideDateTime();
+		 var waitingApproval = new GlideRecord ('sys_created_on');
+	
+		waitingApproval.addQuery('sys_created_on','<=',rightNow);
+		waitingApproval.addQuery('state','=',14);
+		waitingApproval.addQuery('u_requested_for',current.u_requested_for);
+	
+		waitingApproval.query();
+	
+		template.print("You have this many NeedIt Application awaiting approval" + (waitingApproval.getRowCount() -1));
+
+})(current, template, email, email_action, event);]]></script>
+        <sys_class_name>sys_script_email</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-06-13 13:58:03</sys_created_on>
+        <sys_customer_update>false</sys_customer_update>
+        <sys_id>45c02ae34f665300d1d9b4a18110c72e</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>NeedItWaitingForApprovalApplications</sys_name>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_replace_on_upgrade>false</sys_replace_on_upgrade>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_script_email_45c02ae34f665300d1d9b4a18110c72e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-06-13 14:29:41</sys_updated_on>
+    </sys_script_email>
+</record_update>
